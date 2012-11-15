@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html" encoding="utf-8">
+        <h:head>
+            <title>TinkerForge RT Simulation</title>
+            <f:facet name="last">
+            <script type="text/javascript">
+                function updateDirection(data) {
+                    $('#direction').html(data);
+                }
+            </script>
+                </f:facet>
+        </h:head>
+
+        <h:body style="text-align:center">
+            <p id="direction" style="font-family: monospace;font-size:3em;">&nbsp;</p>
+            <p:socket onMessage="updateDirection" channel="/tfSim"/>
+            <a href="svg.xhtml" target="_new">Version with Raphael SVG support</a>
+        </h:body>
+    </f:view>
+</html>
+

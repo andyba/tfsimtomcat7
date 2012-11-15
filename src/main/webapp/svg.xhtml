@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html" encoding="utf-8">
+        <h:head>
+            <title>TinkerForge RT Sim with SVG</title>
+            <h:outputScript library="js" name="raphael-min.js"/>
+            <f:facet name="last">
+                <script type="text/javascript">
+                    var dirTransforms = {
+                       'North':"R0",
+                       'Northeast':"R45",
+                       'East':"R90",
+                       'Southeast':"R135",
+                       'South':"R180",
+                       'Southwest':"R225",
+                       'West':"R270",
+                       'Northwest':"R315"
+                    };
+                    var canvas = null;
+                    var tf = null;
+                    $(document).ready(function() {
+                       canvas = Raphael(document.getElementById("raphaelPanel"), 300, 300);
+                       // tf = canvas.rect(50, 20, 40, 100);
+                       tf = canvas.path("M120 180H180L150 40L120 180");
+                       tf.attr("stroke", "#000");
+                    });
+                    function setDirection(data) {
+                        tf.transform(dirTransforms[data]);
+                    }
+                </script>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:panel id="raphaelPanel">
+            </p:panel>
+            <p:socket onMessage="setDirection" channel="/tfSim"/>
+        </h:body>
+    </f:view>
+</html>
+
